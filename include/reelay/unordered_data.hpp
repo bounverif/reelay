@@ -12,8 +12,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "cudd.h"
-#include "cuddObj.hh"
+#include "cudd/cudd.h"
+#include "cudd/cudd.hpp"
 
 template<>
 struct std::hash<BDD> {

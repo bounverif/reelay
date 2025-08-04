@@ -12,7 +12,7 @@ classifiers = [
 keywords = ["reactive", "automata", "monitoring", "testing", "runtime"]
 name = "reelay"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = { "file" = "LICENSE" }
 authors = [{ "name" = "Dogan Ulus", "email" = "doganulus@gmail.com" }]
 urls = { "Documentation" = "https://doganulus.github.io/reelay" }
@@ -34,7 +34,9 @@ directory = "python"
 include = [
   "README.md",
   "CMakeLists.txt",
+  "cmake/reelayConfig.cmake.in",
   "include/*",
+  "external/*",
   "src/*",
   "python/*",
   "LICENSE",
@@ -45,7 +47,7 @@ exclude = []
 minimum_version = "3.22"
 build_type = "Release"
 source_path = "."
-build_path = "/tmp/reelay/build"
+build_path = "/tmp/build/reelay"
 args = ["-Wdev"]
 build_args = ["-j"]
 build_tool_args = []
@@ -54,15 +56,13 @@ install_components = ["python_modules"]
 env = {}
 
 [tool.py-build-cmake.cmake.options]
-"BUILD_TESTS:BOOL" = "OFF"
-"BUILD_REELAY_APPS:BOOL" = "OFF"
-"BUILD_PYTHON_BINDINGS:BOOL" = "ON"
+"REELAY_BUILD_APPS:BOOL" = "OFF"
+"REELAY_BUILD_TESTS:BOOL" = "OFF"
+"REELAY_BUILD_PYTHON_BINDINGS:BOOL" = "ON"
 
 [tool.py-build-cmake.linux.cmake] # Linux-specific options
-generator = "Ninja Multi-Config"
-config = ["Debug", "Release"]
-
-options = { "CMAKE_DEBUG_POSTFIX" = "_d" }
+generator = "Ninja"
+config = ["Release"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"

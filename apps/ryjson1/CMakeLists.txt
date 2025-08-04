@@ -1,4 +1,6 @@
-find_package(SIMDJSON REQUIRED)
+project(ryjson CXX)
+
+add_subdirectory(external/simdjson)
 
 add_executable(ryjson)
 
