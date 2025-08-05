@@ -42,7 +42,9 @@ option(REELAY_CUDD_BUILD_SHARED_LIBS "Build CUDD as shared library" OFF)
 find_package(Threads REQUIRED)
 
 # Fetch CUDD library
-add_subdirectory(external/boost)
+find_package(Boost 1.88 REQUIRED COMPONENTS json url program_options)
+
+# add_subdirectory(external/boost)
 add_subdirectory(external/cudd)
 
 # Create the main interface library
@@ -52,6 +54,7 @@ add_library(reelay::reelay ALIAS reelay)
 # Link dependencies
 target_link_libraries(reelay INTERFACE
   Threads::Threads
+  Boost::json
   cudd::cudd
 )
 

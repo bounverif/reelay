@@ -73,7 +73,7 @@ void discrete_timed_processing(
   std::cout << "---" << std::endl;
   for(simdjson::dom::element doc : reader.load_many(filename)) {
     reelay::json result = monitor.update(doc);
-    if(not result.empty()) {
+    if(not result.as_object().empty()) {
       if(stdout_line_count < 5) {
         std::cout << result << std::endl;
         stdout_line_count++;
@@ -102,8 +102,8 @@ void dense_timed_processing(
   std::cout << "---" << std::endl;
   for(simdjson::dom::element doc : reader.load_many(filename)) {
     reelay::json result = monitor.update(doc);
-    if(not result.empty()) {
-      for(const auto& item : result) {
+    if(not result.as_array().empty()) {
+      for(const auto& item : result.as_array()) {
         if(stdout_line_count < 5) {
           std::cout << item << std::endl;
           stdout_line_count++;
