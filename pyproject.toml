@@ -1,4 +1,9 @@
 [project]
+name = "reelay"
+license = { "file" = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = []
+readme = "README.md"
 classifiers = [
   'Development Status :: 4 - Beta',
   'Intended Audience :: Developers',
@@ -10,17 +15,14 @@ classifiers = [
   'Programming Language :: Python :: 3',
 ]
 keywords = ["reactive", "automata", "monitoring", "testing", "runtime"]
-name = "reelay"
-readme = "README.md"
-requires-python = ">=3.10"
-license = { "file" = "LICENSE" }
-authors = [{ "name" = "Dogan Ulus", "email" = "doganulus@gmail.com" }]
-urls = { "Documentation" = "https://doganulus.github.io/reelay" }
-dependencies = []
 dynamic = ["version", "description"]
 
-[project.scripts]
-add = "pybind11_project.add:main"
+[[project.authors]]
+name = "Dogan Ulus"
+email = "doganulus@gmail.com"
+
+[project.urls]
+Documentation = "https://doganulus.github.io/reelay"
 
 [build-system]
 requires = ["py-build-cmake~=0.1.8", "pybind11"]
@@ -47,13 +49,12 @@ exclude = []
 minimum_version = "3.22"
 build_type = "Release"
 source_path = "."
-build_path = "/tmp/build/reelay"
+build_path = "/tmp/reelay/build"
 args = ["-Wdev"]
 build_args = ["-j"]
 build_tool_args = []
 install_args = ["--verbose"]
 install_components = ["python_modules"]
-env = {}
 
 [tool.py-build-cmake.cmake.options]
 "REELAY_BUILD_APPS:BOOL" = "OFF"
@@ -69,3 +70,6 @@ minversion = "7.0"
 addopts = "-ra -q"
 testpaths = ["python/tests"]
 cache_dir = "/tmp/reelay/.pytest_cache"
+
+[project.optional-dependencies]
+devel = ["pytest"]

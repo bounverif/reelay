@@ -1,26 +1,31 @@
-WORKSPACE := ${PWD}
-BUILD_DIRECTORY := /tmp/$(basename $(notdir ${WORKSPACE}))/build
+REELAY_SOURCE_DIR ?= $(PWD)
+REELAY_BUILD_DIR := /tmp/build/$(notdir $(REELAY_SOURCE_DIR))
 CMAKE_INSTALL_PREFIX ?= /tmp/install
 
 .PHONY: all configure build test cbuild cryjson
 
 configure:
-	cmake -S $(WORKSPACE) -B $(BUILD_DIRECTORY) -DCMAKE_INSTALL_PREFIX="/usr/local"
+	cmake -S $(REELAY_SOURCE_DIR) -B $(REELAY_BUILD_DIR)
 
 configure-devel:
-	cmake -S $(WORKSPACE) -B $(BUILD_DIRECTORY) -DCMAKE_INSTALL_PREFIX=$(CMAKE_INSTALL_PREFIX) -DREELAY_BUILD_TESTS=ON -DREELAY_BUILD_APPS=ON
+	PYTHON_BIN_PATH=/opt/python/cp311-cp311/bin/python \
+	cmake -S $(REELAY_SOURCE_DIR) -B $(REELAY_BUILD_DIR) \
+		-DREELAY_BUILD_TESTS=ON \
+		-DREELAY_BUILD_APPS=ON \
+		-DREELAY_BUILD_PYTHON_BINDINGS=ON \
+		-DPython_EXECUTABLE=python3.11
 
 build: configure
-	cmake --build $(BUILD_DIRECTORY)
+	cmake --build $(REELAY_BUILD_DIR)
 
 devel: configure-devel
-	cmake --build $(BUILD_DIRECTORY)
+	cmake --build $(REELAY_BUILD_DIR)
 
 test: devel
-	ctest --test-dir $(BUILD_DIRECTORY) --output-on-failure
+	ctest --test-dir $(REELAY_BUILD_DIR) --output-on-failure
 
 install:
-	cmake --install $(BUILD_DIRECTORY)
+	cmake --install $(REELAY_BUILD_DIR) --prefix $(CMAKE_INSTALL_PREFIX)
 
 cdevel:
 	docker build -t ghcr.io/doganulus/reelay:devel docker/devel

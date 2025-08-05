@@ -110,7 +110,7 @@ if(REELAY_BUILD_TESTS)
 endif()
 
 if(REELAY_BUILD_PYTHON_BINDINGS)
-  add_subdirectory(src/pybind11)
+  add_subdirectory(python)
 endif()
 
 # Compile Commands

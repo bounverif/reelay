@@ -33,7 +33,7 @@ py::dict inspect(const std::string& pattern)
     py::arg("timed") = timed, py::arg("has_references") = has_references);
 }
 
-PYBIND11_MODULE(MODULE_NAME, m)
+PYBIND11_MODULE(_reelay_module, m)
 {
   m.doc() =
     "This package provides Python bindings of runtime monitors constructed "
@@ -43,11 +43,12 @@ PYBIND11_MODULE(MODULE_NAME, m)
 
   py::class_<ry::basic_options>(m, "monitor_options")
     .def(py::init<const std::string&, const std::string&, bool, bool>())
-    .def(py::init<
-         const std::string&,
-         const std::string&,
-         const std::string&,
-         bool>());
+    .def(
+      py::init<
+        const std::string&,
+        const std::string&,
+        const std::string&,
+        bool>());
   ;
 
   using discrete_monitor_t =

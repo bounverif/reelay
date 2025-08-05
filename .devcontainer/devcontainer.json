@@ -3,6 +3,11 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "containerEnv": {
+    "REELAY_SOURCE_DIR": "${workspaceFolder}",
+    "REELAY_BUILD_DIR": "/tmp/build/reelay",
+    "CMAKE_INSTALL_PREFIX": "/tmp/install"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -11,11 +16,13 @@
         "ms-python.python",
         "EditorConfig.EditorConfig",
         "esbenp.prettier-vscode",
+        "tamasfe.even-better-toml"
       ],
       "settings": {
         "editor.formatOnSave": true,
         "editor.formatOnPaste": true
       }
     }
-  }
+  },
+  "postStartCommand": "make configure-devel"
 }
